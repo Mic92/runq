@@ -2,6 +2,7 @@
 DIR=$(cd ${0%/*};pwd;)
 set -u
 set -e
+set -x
 
 TMP_DIR=$(mktemp -d)
 mkdir -p $TMP_DIR/sbin
@@ -17,6 +18,8 @@ popd >/dev/null
 cp $DIR/../cmd/init/init $TMP_DIR/
 cp $DIR/../cmd/vsockd/vsockd $TMP_DIR/sbin/
 cp $DIR/../cmd/nsenter/nsenter $TMP_DIR/sbin/
+cp $DIR/../cmd/sysdig/sysdig $TMP_DIR/sbin/sysdig
+cp $DIR/../cmd/sysdig/filter.lua $TMP_DIR/filter.lua
 cp /usr/bin/docker-init $TMP_DIR/sbin/
 
 pushd $TMP_DIR >/dev/null

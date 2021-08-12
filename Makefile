@@ -33,7 +33,10 @@ tarfile:
 	tar  -C $(RUNQ_ROOT) --transform 's,^./,$(TARDIR)/,' --numeric-owner --owner=0 --group=0 -czf $(TARFILE) .
 	chown `stat --printf "%u:%g" .git` $(TARFILE)
 
-release: image
+cmd/sysdig/sysdig:
+	$(MAKE) -C cmd/sysdig
+
+release: image cmd/sysdig/sysdig
 	docker run \
 		--rm \
 		-v $(CURDIR):/runq \

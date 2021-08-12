@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
 	"os/signal"
 	"path/filepath"
 	"runtime"
@@ -194,6 +195,18 @@ func runInit() error {
 			shutdown(1, "can't adjust oom score of vsockd")
 		}
 		go wait4Vsockd(vsockd.Process.Pid)
+	}
+
+	if err := loadKernelModules("sysdig", ""); err != nil {
+		return err
+	}
+
+	cmd := exec.Command("/sbin/sysdig", "-c", "/filter.lua")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err = cmd.Start()
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	// Main loop to process messages from proxy.
