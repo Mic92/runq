@@ -12,7 +12,7 @@ import (
 const MinMem = 64
 
 // KernelParameters defines kernel boot parameters.
-const KernelParameters = "console=ttyS0 panic=1 module.sig_enforce=1 loglevel=3"
+const KernelParameters = "console=ttyS0 panic=1 module.sig_enforce=0 loglevel=3"
 
 // Envfile contains all entrypoint environment variables.
 const Envfile = "/.runqenv"
