@@ -4,7 +4,7 @@ all: image qemu.tar
 
 image:
 	cd $(ARCH) && \
-	docker build -t $(BUILD_IMAGE) .
+	docker build -f Dockerfile.2004 -t $(BUILD_IMAGE) .
 
 qemu.tar:
 	docker run --rm $(BUILD_IMAGE) tar -C $(QEMU_ROOT) -cf - .  > qemu.tar

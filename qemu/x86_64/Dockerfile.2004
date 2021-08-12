@@ -25,13 +25,26 @@ RUN echo "do_initrd = no" >> /etc/kernel-img.conf \
         qemu-system-x86 \
         rsync \
         wget \
-        xz-utils
+        xz-utils \
+        gnupg \
+        linux-virtual \
+        cmake \
+        libelf-dev \
+        pkg-config \
+        git
 
 RUN set -eu; \
     wget -q -O go.tar.gz $GO_URL; \
     echo "$GO_SHA256 go.tar.gz" | sha256sum -c -; \
     tar -C /usr/local -xzf go.tar.gz; \
     rm -f go.tar.gz
+
+RUN wget -q -O /tmp/sysdig.tar.gz 'https://github.com/draios/sysdig/archive/refs/tags/0.27.1.tar.gz' && \
+    mkdir -p /tmp/sysdig/build && \
+    tar --strip-components=1 -C /tmp/sysdig -xvf /tmp/sysdig.tar.gz && \
+    cd /tmp/sysdig/build && \
+    cmake .. && \
+    KERNELDIR=/lib/modules/*/build make install_driver
 
 RUN mkdir -p \
     $QEMU_ROOT/dev \
@@ -59,7 +72,8 @@ RUN    echo base  /lib/modules/*/kernel/fs/fscache/fscache.ko                   
     && echo btrfs /lib/modules/*/kernel/crypto/xor.ko                                       >> $QEMU_ROOT/kernel.conf \
     && echo btrfs /lib/modules/*/kernel/fs/btrfs/btrfs.ko                                   >> $QEMU_ROOT/kernel.conf \
     && echo xfs   /lib/modules/*/kernel/lib/libcrc32c.ko                                    >> $QEMU_ROOT/kernel.conf \
-    && echo xfs   /lib/modules/*/kernel/fs/xfs/xfs.ko                                       >> $QEMU_ROOT/kernel.conf
+    && echo xfs   /lib/modules/*/kernel/fs/xfs/xfs.ko                                       >> $QEMU_ROOT/kernel.conf \
+    && echo sysdig /lib/modules/*/extra/sysdig-probe.ko                                     >> $QEMU_ROOT/kernel.conf
 
 RUN cp /boot/vmlinuz-*-generic $QEMU_ROOT/kernel
 
