@@ -82,11 +82,15 @@
         ]
     },
     "couchdb": {
-        "envs": [],
+        "envs": [
+            "COUCHDB_USER=admin",
+            "COUCHDB_PASSWORD=password"
+        ],
         "mounts": [],
+        "new_size": 57384960,
+        "old_size": 190373376,
         "repo_digest": "couchdb@sha256:ade1703ef61ebb276b574675d43de47a24808df59cb50d79b0b69786b4c14099",
         "sidecars": {},
-        "skip": true,
         "test_ports": [
             {
                 "num": 5984
@@ -226,12 +230,31 @@
         ]
     },
     "joomla": {
-        "envs": [],
+        "envs": [
+            "JOOMLA_DB_HOST=${mysql}",
+            "JOOMLA_DB_PASSWORD=example"
+        ],
         "mounts": [],
+        "new_size": 142489600,
+        "old_size": 465588736,
         "repo_digest": "joomla@sha256:bc89405b6883685d65391a4a8b810d859071d0e4e1dcb54a8b6fc3af712a7cc8",
-        "sidecars": {},
-        "skip": true,
-        "test_ports": []
+        "sidecars": {
+            "mysql": {
+                "envs": [
+                    "MYSQL_ROOT_PASSWORD=example"
+                ],
+                "mounts": [],
+                "repo_digest": "mysql@sha256:391f655177931dc2905b6fbf6b21d769060f8797ce1b515e8579a157afcce459",
+                "sidecars": {},
+                "test_ports": []
+            }
+        },
+        "test_ports": [
+            {
+                "num": 80,
+                "wget": true
+            }
+        ]
     },
     "kong": {
         "envs": [
@@ -315,6 +338,7 @@
         "new_size": 135997440,
         "old_size": 683317760,
         "repo_digest": "mongo@sha256:54d24682d00278f64bf21ff62b7ee62b59dae50f65139831a884b345922b0f8a",
+        "sidecars": {},
         "test_ports": [
             {
                 "num": 27017
@@ -329,6 +353,8 @@
             "ME_CONFIG_MONGODB_AUTH_PASSWORD=mongo"
         ],
         "mounts": [],
+        "new_size": 62648320,
+        "old_size": 148210176,
         "repo_digest": "mongo-express@sha256:487afe8bad4d2b07a6c9c5748908d16f11e4257a8b42312f1c0b5c0da01fda55",
         "sidecars": {
             "mongo": {
@@ -336,7 +362,10 @@
                     "MONGO_INITDB_ROOT_USERNAME=mongo",
                     "MONGO_INITDB_ROOT_PASSWORD=mongo"
                 ],
-                "repo_digest": "mongo@sha256:54d24682d00278f64bf21ff62b7ee62b59dae50f65139831a884b345922b0f8a"
+                "mounts": [],
+                "repo_digest": "mongo@sha256:54d24682d00278f64bf21ff62b7ee62b59dae50f65139831a884b345922b0f8a",
+                "sidecars": {},
+                "test_ports": []
             }
         },
         "test_ports": [

@@ -334,6 +334,8 @@ def shrink_image(image: Image, tempdir: Path, log_path: Path) -> Tuple[str, int,
             b"/lib/ld-musl-x86_64.so.1",
             b"/lib64/ld-linux-x86-64.so.2",
             b"/lib/x86_64-linux-gnu/ld-2.31.so",
+            # hack for mongo-express
+            b"/node_modules/mongo-express/public/images/favicon.ico"
         ]
     )
     with open(log_path.joinpath("logs"), "rb") as f:
