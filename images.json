@@ -484,6 +484,19 @@
             }
         ]
     },
+    "solr": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 232960000,
+        "old_size": 540512768,
+        "repo_digest": "solr@sha256:3375a3674728ebf050ea7afc03d8be8657a9decb0a7c93ed0e515ce88bda842f",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8983
+            }
+        ]
+    },
     "sonarqube": {
         "envs": [],
         "mounts": [],
