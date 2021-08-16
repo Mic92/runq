@@ -1,42 +1,558 @@
 {
-    "adminer": "sha256:4727f36d62d9f5375563e981f2815dc906772c0183e250c79bd287a146537f46",
-    "caddy": "sha256:df8a741f4852592d8634aa37c7f351ae4f4e7b4a9a2594df54603ac48cbdad74",
-    "cassandra": "sha256:359f84acb6d700c4874e2bb5702918f393cc291e17901e2dbfa0a1f7d3aa3f89",
-    "chronograf": "sha256:8dc01bb5160ebb51052a092baf980f5c42646d324c33c9c026014c1f2ba21d38",
-    "consul": "sha256:51f67cdd31f475de3882de8424e6796b404318c4ce3950c85ce4111b193f1a57",
-    "couchbase": "sha256:9022428339d4615af519685439630f4532bb43a64f4c82f29c299271e16d0e56",
-    "couchdb": "sha256:4cf953a0e1c4aa635d7979afd3b6e4c7c723955e4527dd39b91f1efb018c7bbc",
-    "docker": "sha256:51453dcdd9bd51e503f75e6d42a4071469ad2ba816321781985041b6bc7776db",
-    "drupal": "sha256:43deba220fec4a095d2ad6b28f93cad9f67b54c78e3fc70a9ce58f1f416d8d3c",
-    "eclipse-mosquitto": "sha256:c3a8baae5c3fc5eb59fa173f9acc042c276fc204e371b834b7b32326f2197480",
-    "elasticsearch:7.14.0": "sha256:e347b2b2d6c139e00250755db2a77c993176bdbbc5daecc5c0c3a3b04004b186",
-    "ghost": "sha256:7845d328983dc287a57573b8e43eaa94944cd39f27090b0639a788f6e12131ad",
-    "haproxy": "sha256:271c3cfa9d6bd4ac64f3204fee4b75a3a275378fcfc9ad3f314e4e4cfecaa3c3",
-    "httpd": "sha256:bde40dcb22a7a82392a45bcc7f191bb2f807d57711934d4eda869d3d649a3643",
-    "influxdb": "sha256:d636ad7ee210123228a7815b07cac9bfa682fba8e2baa59ceefbcf36cae7a0b7",
-    "jenkins/jenkins:lts": "sha256:3b4ec91827f28ed482b08f6e379c56ea2308967d10aa4f458442c922e0771f87",
-    "joomla": "sha256:275347548163362652e54a8a03399122d85a410a0343c747619b0cc5cfb808da",
-    "kong": "sha256:c6ccc21c00cef6852bbf840402c7c92cd19d23882e66880b3c4b74fa7c48c6a7",
-    "logstash:7.14.0": "sha256:1770c8f0e1907a812c74b1bee58a831e861546fe360e636dd2191641c7dcd70f",
-    "mariadb": "sha256:45eaeedf03deed202dade660cbfe44ae17cac512cfd23ca2becab1cd20b5a6f3",
-    "matomo": "sha256:9d7c4846d9115f6cd55856f0d5deb07382ac8eacbe7c371a562e031758bf5ef8",
-    "memcached": "sha256:fac10ca640572ddf6fd487f0add1ab5ef8830783ae9eada8d0f9fffc6e4ec80e",
-    "mongo": "sha256:269b735e72cb9c7173c52d775d56453594f32a37f63a71a5404390ce4d51db7d",
-    "mongo-express": "sha256:e7dae8a621b1b1d46f3987d71138adf4b53abc29da5f13906790a0861409e87f",
-    "mysql": "sha256:c60d96bd2b771a8e3cae776e02e55ae914a6641139d963defeb3c93388f61707",
-    "neo4j": "sha256:539db0bbdf5ebe871afe22da562b4883075306e05952ddf9688ab50d1e242921",
-    "nextcloud": "sha256:e5a758cbb02c78243349ab967488f3a859f9ca4d13d5b410a7fc195e4748c7be",
-    "nginx": "sha256:08b152afcfae220e9709f00767054b824361c742ea03a9fe936271ba520a0a4b",
-    "postgres": "sha256:b2fcd079c1d403dc1dba5397ca1bca606f17ebcf99b03b66c59941929acff57c",
-    "rabbitmq": "sha256:c83f5838192a26b3b694b07a7d288b1f4a6ca074973550fdb1e2907fb0bb7b3c",
-    "redis": "sha256:aa4d65e670d6518e5da96ca9d1a76370a942970a8802e6d5cc6bcf058ab12ca7",
-    "registry": "sha256:1fd8e1b0bb7ef6cc63e0094e2fb5a35259bdce7041ef5e7e4c99694ded1041d7",
-    "sonarqube": "sha256:c12f16fa54088a91b79a1b05857adb85712f01b202d242135e9393affb7d43f9",
-    "swarm": "sha256:1a5eb59a410faeff5de495f07553845624ad3278ac59ac066107564bdd14bf48",
-    "telegraf": "sha256:a3292ebb7fef7621621405b8746432842dde3382623a9b4ab5726fbbcc56066a",
-    "tomcat": "sha256:710ec5c566839d6ccc00ed8342f514f477eed530bb29c8b3dbbdadec524eff2b",
-    "traefik": "sha256:77d3b9e70c4801587dd39574069fb09dc0d7ca2853092ac7ef53d0b75484a389",
-    "vault": "sha256:b5e03ae6c19e95a5101c148544ca077b273dbfb14309d2bf3dd85366a9321e8c",
-    "wordpress": "sha256:baf5889057ff8f0bb83e243a2396523751aeb9482c8e42ce91df0c150e8c311e",
-    "zookeeper": "sha256:2e2f6a1661fd115997995c548631c1ca0f3a62121b05166879feb2ddd11754a9"
+    "adminer": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 28948480,
+        "old_size": 90680320,
+        "repo_digest": "adminer@sha256:df5f18feae7227f951a7d34f8fd850b0afbd146ec45cef67a536e95cdae0e724",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8080,
+                "wget": true
+            }
+        ]
+    },
+    "caddy": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 34703360,
+        "old_size": 40124416,
+        "repo_digest": "caddy@sha256:0eb4b3cefcf200886694a459d4d3daa313865970e95a54d7eed8263299a0264e",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 80,
+                "wget": true
+            }
+        ]
+    },
+    "cassandra": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 219965440,
+        "old_size": 338149376,
+        "repo_digest": "cassandra@sha256:c4d7c1a65a4f11bdeca75eb1d43c32a0c23e5e9253ac96eeadb09f1f518a0a7f",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 7000
+            }
+        ]
+    },
+    "chronograf": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 74055680,
+        "old_size": 179307520,
+        "repo_digest": "chronograf@sha256:ac44cbe484b5e32894e41097a780af48479e02f83fca05faa5b067ddc39d8394",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8888,
+                "wget": true
+            }
+        ]
+    },
+    "consul": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 106885120,
+        "old_size": 116814336,
+        "repo_digest": "consul@sha256:c83f868a5c3727aa219f8098193f511cb29ad386ec5359d07194b933085f7285",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8500
+            }
+        ]
+    },
+    "couchbase": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 176855040,
+        "old_size": 1399683072,
+        "repo_digest": "couchbase@sha256:005fb3ba97c2362b9ccc9d96f0d94bf09c2fe784d889fe71c5a2ba475e4645a4",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8091,
+                "wget": true
+            }
+        ]
+    },
+    "couchdb": {
+        "envs": [],
+        "mounts": [],
+        "repo_digest": "couchdb@sha256:ade1703ef61ebb276b574675d43de47a24808df59cb50d79b0b69786b4c14099",
+        "sidecars": {},
+        "skip": true,
+        "test_ports": [
+            {
+                "num": 5984
+            }
+        ]
+    },
+    "docker:dind": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 105574400,
+        "old_size": 231381504,
+        "repo_digest": "docker@sha256:c0aac52a0f704627c01dfd5177f3d0e5d9bf6e64f2b8a2c35b5b5087ebe94cfc",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 2376
+            }
+        ]
+    },
+    "drupal": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 90869760,
+        "old_size": 520628224,
+        "repo_digest": "drupal@sha256:d87514c379d5358a5a3050440599a02ccc69e56e35eef6630bb331afbc3c0746",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 80,
+                "wget": true
+            }
+        ]
+    },
+    "eclipse-mosquitto": {
+        "envs": [],
+        "mounts": [
+            {
+                "from_path": "mosquitto.conf",
+                "to_path": "/mosquitto/config/mosquitto.conf"
+            }
+        ],
+        "new_size": 4505600,
+        "old_size": 10210816,
+        "repo_digest": "eclipse-mosquitto@sha256:0c6d0733045c8fa6ec73c1862c737411e509a051d87c84771269d7a1f47b6c20",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 1883
+            }
+        ]
+    },
+    "elasticsearch:7.14.0": {
+        "envs": [
+            "discovery.type=single-node"
+        ],
+        "mounts": [],
+        "new_size": 324065280,
+        "old_size": 874865664,
+        "repo_digest": "elasticsearch@sha256:81c126e4eddbc5576285670cb3e23d7ef7892ee5e757d6d9ba870b6fe99f1219",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 9200
+            }
+        ]
+    },
+    "ghost": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 105451520,
+        "old_size": 473561600,
+        "repo_digest": "ghost@sha256:1c86c07ff782da5368b6fb8237697a8ed9cdc2075ebfd39bc419d0dbeb348827",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 2368,
+                "wget": true
+            }
+        ]
+    },
+    "haproxy": {
+        "envs": [],
+        "mounts": [
+            {
+                "from_path": "haproxy.cfg",
+                "to_path": "/usr/local/etc/haproxy/haproxy.cfg"
+            }
+        ],
+        "new_size": 28682240,
+        "old_size": 97108480,
+        "repo_digest": "haproxy@sha256:3f0167b035e8a3c8bf6df0b48fae1846ad8a08d627d20367b7ba2c67cd8abbf7",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 80
+            }
+        ]
+    },
+    "httpd": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 9072640,
+        "old_size": 138383872,
+        "repo_digest": "httpd@sha256:eacdd6c7419ab95b43a258321fc6b38cf56004de4f6a952fc0d96a12730e04de",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 80
+            }
+        ]
+    },
+    "influxdb": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 176056320,
+        "old_size": 354516480,
+        "repo_digest": "influxdb@sha256:085d0a0f2a627ac22586305772e20e4c390cd1e4dd95daa7923f5144638c3f8e",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8086
+            }
+        ]
+    },
+    "jenkins/jenkins:lts": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 208261120,
+        "old_size": 576159744,
+        "repo_digest": "jenkins/jenkins@sha256:abcd55c9f19c85808124a4d82e3412719cd5c511c03ebd7d4210e9fa9e8f1029",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8080,
+                "wget": true
+            }
+        ]
+    },
+    "joomla": {
+        "envs": [],
+        "mounts": [],
+        "repo_digest": "joomla@sha256:bc89405b6883685d65391a4a8b810d859071d0e4e1dcb54a8b6fc3af712a7cc8",
+        "sidecars": {},
+        "skip": true,
+        "test_ports": []
+    },
+    "kong": {
+        "envs": [
+            "KONG_DATABASE=off",
+            "KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl",
+            "KONG_DATABASE=off",
+            "KONG_PROXY_ACCESS_LOG=/tmp/stdout",
+            "KONG_ADMIN_ACCESS_LOG=/tmp/stdout",
+            "KONG_PROXY_ERROR_LOG=/tmp/stderr",
+            "KONG_ADMIN_ERROR_LOG=/tmp/stderr"
+        ],
+        "mounts": [],
+        "new_size": 45332480,
+        "old_size": 145201152,
+        "repo_digest": "kong@sha256:7a33695e8c817dbc8776d5c8d0167457893d151b6c66f10ef52650d06db2334d",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8000,
+                "wget": true
+            }
+        ]
+    },
+    "logstash:7.14.0": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 245862400,
+        "old_size": 864952320,
+        "repo_digest": "logstash@sha256:cda21243aa471c4bef46b89aebe6a51c6e2a2f6e96e16bd08f47e8035176eb07",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 5044
+            }
+        ]
+    },
+    "mariadb": {
+        "envs": [
+            "MARIADB_ROOT_PASSWORD=my-secret-pw"
+        ],
+        "mounts": [],
+        "new_size": 71362560,
+        "old_size": 410310656,
+        "repo_digest": "mariadb@sha256:52c8d34497fbf8f7ab70369e48c90a82298ed44d95e8174a5e2da18baa9391ae",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 3306
+            }
+        ]
+    },
+    "matomo": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 141178880,
+        "old_size": 481254400,
+        "repo_digest": "matomo@sha256:b2a0198e8629196c7fa13aa5f8b39b554da2c05aa20eb1f0871a28efaadb096c",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 80
+            }
+        ]
+    },
+    "memcached": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 8704000,
+        "old_size": 82657280,
+        "repo_digest": "memcached@sha256:d69b3a579f7c9ebf283058b41c25268d08073290fb75efaa1079019a283ec0df",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 11211
+            }
+        ]
+    },
+    "mongo": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 135997440,
+        "old_size": 683317760,
+        "repo_digest": "mongo@sha256:54d24682d00278f64bf21ff62b7ee62b59dae50f65139831a884b345922b0f8a",
+        "test_ports": [
+            {
+                "num": 27017
+            }
+        ]
+    },
+    "mongo-express": {
+        "envs": [
+            "ME_CONFIG_MONGODB_SERVER=${mongo}",
+            "ME_CONFIG_MONGODB_PORT=27017",
+            "ME_CONFIG_MONGODB_AUTH_USERNAME=mongo",
+            "ME_CONFIG_MONGODB_AUTH_PASSWORD=mongo"
+        ],
+        "mounts": [],
+        "repo_digest": "mongo-express@sha256:487afe8bad4d2b07a6c9c5748908d16f11e4257a8b42312f1c0b5c0da01fda55",
+        "sidecars": {
+            "mongo": {
+                "envs": [
+                    "MONGO_INITDB_ROOT_USERNAME=mongo",
+                    "MONGO_INITDB_ROOT_PASSWORD=mongo"
+                ],
+                "repo_digest": "mongo@sha256:54d24682d00278f64bf21ff62b7ee62b59dae50f65139831a884b345922b0f8a"
+            }
+        },
+        "test_ports": [
+            {
+                "num": 8081
+            }
+        ]
+    },
+    "mysql": {
+        "envs": [
+            "MYSQL_ROOT_PASSWORD=my-secret-pw"
+        ],
+        "mounts": [],
+        "new_size": 108154880,
+        "old_size": 512813568,
+        "repo_digest": "mysql@sha256:8b928a5117cf5c2238c7a09cd28c2e801ac98f91c3f8203a8938ae51f14700fd",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 3306
+            }
+        ]
+    },
+    "neo4j": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 301957120,
+        "old_size": 571492352,
+        "repo_digest": "neo4j@sha256:25ac272acce26dba7194d1b69e27195d8df30349e4244b0fc3c01eb3a9b908ad",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 7474
+            }
+        ]
+    },
+    "nextcloud": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 562647040,
+        "old_size": 913960960,
+        "repo_digest": "nextcloud@sha256:3a7f13cfe6c994935a3c4c15a44f944be92dbf954f88caf239f410d3d102ba8f",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 80,
+                "wget": true
+            }
+        ]
+    },
+    "nginx": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 12257280,
+        "old_size": 135658496,
+        "repo_digest": "nginx@sha256:8f335768880da6baf72b70c701002b45f4932acae8d574dedfddaf967fc3ac90",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 80,
+                "wget": true
+            }
+        ]
+    },
+    "postgres": {
+        "envs": [
+            "POSTGRES_PASSWORD=password"
+        ],
+        "mounts": [],
+        "new_size": 78561280,
+        "old_size": 314660352,
+        "repo_digest": "postgres@sha256:6647385dd9ae11aa2216bf55c54d126b0a85637b3cf4039ef24e3234113588e3",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 5432
+            }
+        ]
+    },
+    "rabbitmq": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 102574080,
+        "old_size": 221199872,
+        "repo_digest": "rabbitmq@sha256:758fea0dad8db1888b2b3bf7f97e63c8a7947938716b44a3deb6f0b2d0fec5fb",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 5672
+            }
+        ]
+    },
+    "redis": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 24043520,
+        "old_size": 105318912,
+        "repo_digest": "redis@sha256:cd0c68c5479f2db4b9e2c5fbfdb7a8acb77625322dd5b474578515422d3ddb59",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 6379
+            }
+        ]
+    },
+    "registry": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 21903360,
+        "old_size": 26751488,
+        "repo_digest": "registry@sha256:121baf25069a56749f249819e36b386d655ba67116d9c1c6c8594061852de4da",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 5000
+            }
+        ]
+    },
+    "sonarqube": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 385402880,
+        "old_size": 510940160,
+        "repo_digest": "sonarqube@sha256:507e282c0a66fbe1b0e9012be81f833bc8619f6fa97f3d73dd50656930e016d0",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 9000
+            }
+        ]
+    },
+    "swarm": {
+        "envs": [],
+        "mounts": [],
+        "repo_digest": "swarm@sha256:2de8883e2933840ed7ee7360ea1eed314bf8aeac37c0692b9ca651630fde3b7f",
+        "sidecars": {},
+        "skip": true,
+        "test_ports": []
+    },
+    "telegraf": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 131829760,
+        "old_size": 336549888,
+        "repo_digest": "telegraf@sha256:4766570dfc15b13d5509f70371d51a825c2b561016b8b538d6976506a6c471c1",
+        "sidecars": {},
+        "test_ports": []
+    },
+    "tomcat": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 210636800,
+        "old_size": 671394816,
+        "repo_digest": "tomcat@sha256:e47d48c4fb7ae34d35aae0dc068e84fd9be37a217a46033f22a3626dea839b8f",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8080
+            }
+        ]
+    },
+    "traefik": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 86466560,
+        "old_size": 93381632,
+        "repo_digest": "traefik@sha256:3123d05e444f6297592c8443bcffe4bd291ab5b62e11a3d4eeb7ba3fd809540d",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 80,
+                "wget": true
+            }
+        ]
+    },
+    "vault": {
+        "envs": [
+            "SKIP_SETCAP=1"
+        ],
+        "mounts": [],
+        "new_size": 175124480,
+        "old_size": 181907456,
+        "repo_digest": "vault@sha256:17c8fb627a230a25d2ca1073ee501b4dfd5deda47ea811ac101a989666c00170",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8200,
+                "wget": true
+            }
+        ]
+    },
+    "wordpress": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 147722240,
+        "old_size": 553201664,
+        "repo_digest": "wordpress@sha256:b590a25a358650cb91233ef9e058b2785a121f3a9e622d9dfc03a2749004013e",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 80,
+                "wget": true
+            }
+        ]
+    },
+    "zookeeper": {
+        "envs": [],
+        "mounts": [],
+        "new_size": 158658560,
+        "old_size": 271189504,
+        "repo_digest": "zookeeper@sha256:d70d4bfa7e1ada5d4247ad9f482d2ed191eb01dddd8da3c14234a418a22498f8",
+        "sidecars": {},
+        "test_ports": [
+            {
+                "num": 8080
+            }
+        ]
+    }
 }
