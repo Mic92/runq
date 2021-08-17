@@ -12,6 +12,7 @@ pkgs.mkShell {
     go
     pkg-config
     mypy
+    python3.pkgs.pandas
   ];
   buildInputs = [ pkgs.libseccomp ];
   DOCKER_INIT = tini;
