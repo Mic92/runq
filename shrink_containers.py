@@ -113,13 +113,41 @@ def build_runq() -> None:
         )
 
 
+def terminate(p: subprocess.Popen) -> None:
+    run(["sudo", "kill", str(p.pid)])
+    try:
+        print(f"wait for process {p.pid} to finish")
+        p.wait(timeout=3)
+    except subprocess.TimeoutExpired:
+        run(["sudo", "kill", "-9", str(p.pid)])
+
+
+class Dockerd:
+    def __init__(self, containerd, dockerd):
+        self.containerd = containerd
+        self.dockerd = dockerd
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        try:
+            terminate(self.dockerd)
+        finally:
+            try:
+                terminate(self.containerd)
+            except OSError:
+                pass
+
+
 @contextmanager
-def run_dockerd(bridge: str) -> Iterator[subprocess.Popen]:
+def run_dockerd(bridge: str) -> Iterator[Dockerd]:
+    runq = BUILD_ROOT.joinpath("runq-release/runq")
     data = {
-        "storage-driver": "overlay",
+        "storage-driver": "devicemapper",
         "runtimes": {
             "runq": {
-                "path": str(BUILD_ROOT.joinpath("runq-release/runq")),
+                "path": str(runq),
                 "runtimeArgs": [
                     "--cpu",
                     "4",
@@ -139,20 +167,19 @@ def run_dockerd(bridge: str) -> Iterator[subprocess.Popen]:
     sock_path = BUILD_ROOT.joinpath("docker.sock")
     docker_host = f"unix://{sock_path}"
     pid_file = BUILD_ROOT.joinpath("docker.pid")
+    containerd_sock = BUILD_ROOT.joinpath("docker-containerd.sock")
     if pid_file.exists():
         with open(pid_file) as f:
             run(["sudo", "kill", "-9", f.read().strip()], check=False)
             run(["sudo", "rm", str(pid_file)], check=False)
 
-    #sudo mount -t ext4 -o loop /media/USER/DISK/linux.img /media/USER/YourDIR
-    data_root = BUILD_ROOT.joinpath('docker')
-    data_image = BUILD_ROOT.joinpath('docker.ext4')
-    run(["sudo", "umount", str(data_root)], check=False)
-    if data_image.exists():
-        data_image.unlink()
-    run(["truncate", "-s30G", str(data_image)])
-    run(["sudo", "mkfs.ext4", str(data_image)])
-    run(["sudo", "mount", "-t", "ext4", "-o", "loop", str(data_image), str(data_root)])
+    nix_cc = os.environ.get("NIX_CC")
+    if nix_cc:
+        # nix only
+        with open(nix_cc + "/nix-support/dynamic-linker") as f:
+            run(["patchelf", "--set-interpreter", f.read().strip(), str(runq)])
+
+    data_root = BUILD_ROOT.joinpath("docker")
 
     cmd = [
         "sudo",
@@ -163,12 +190,16 @@ def run_dockerd(bridge: str) -> Iterator[subprocess.Popen]:
         str(pid_file),
         "--config-file",
         str(daemon_path),
+        "--containerd",
+        str(containerd_sock),
         "-H",
         docker_host,
         f"--data-root={data_root}",
     ]
+    containerd = ["sudo", "containerd", "--address", str(containerd_sock)]
     print(" ".join(cmd))
-    with subprocess.Popen(cmd) as p:
+
+    with subprocess.Popen(containerd) as p1, subprocess.Popen(cmd) as p2:
         client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         while True:
             try:
@@ -176,7 +207,7 @@ def run_dockerd(bridge: str) -> Iterator[subprocess.Popen]:
                 client.close()
                 break
             except OSError:
-                res = p.poll()
+                res = p2.poll()
                 if res != None:
                     print(f"dockerd terminated with {res}")
                     sys.exit(1)
@@ -184,17 +215,7 @@ def run_dockerd(bridge: str) -> Iterator[subprocess.Popen]:
 
         old = os.environ.copy()
         os.environ["DOCKER_HOST"] = docker_host
-        try:
-            yield p
-        finally:
-            os.environ.update(old)
-            run(["sudo", "kill", str(p.pid)])
-            try:
-                print("wait for dockerd to finish")
-                # p.wait(timeout=20)
-                p.wait(timeout=3)
-            except subprocess.TimeoutExpired:
-                run(["sudo", "kill", "-9", str(p.pid)])
+        yield Dockerd(p1, p2)
 
 
 @dataclass
@@ -346,7 +367,7 @@ def shrink_image(image: Image, tempdir: Path, log_path: Path) -> Tuple[str, int,
             b"/lib64/ld-linux-x86-64.so.2",
             b"/lib/x86_64-linux-gnu/ld-2.31.so",
             # hack for mongo-express
-            b"/node_modules/mongo-express/public/images/favicon.ico"
+            b"/node_modules/mongo-express/public/images/favicon.ico",
         ]
     )
     with open(log_path.joinpath("logs"), "rb") as f:
@@ -414,8 +435,8 @@ def shrink_image(image: Image, tempdir: Path, log_path: Path) -> Tuple[str, int,
     finally:
         source.close()
 
-    for p in list(path_set):
-        p = Path(p.decode("utf-8"))
+    for byte_p in list(path_set):
+        p = Path(byte_p.decode("utf-8"))
         try:
             p = symlink_tree.joinpath(p.relative_to("/"))
         except ValueError:
