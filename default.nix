@@ -15,6 +15,7 @@ pkgs.mkShell {
     python3.pkgs.pandas
     docker
     docker.moby.docker-containerd
+    docker.moby.docker-runc
   ];
   buildInputs = [ pkgs.libseccomp ];
   DOCKER_INIT = tini;
