@@ -122,26 +122,8 @@ def terminate(p: subprocess.Popen) -> None:
         run(["sudo", "kill", "-9", str(p.pid)])
 
 
-class Dockerd:
-    def __init__(self, containerd, dockerd):
-        self.containerd = containerd
-        self.dockerd = dockerd
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, type, value, traceback):
-        try:
-            terminate(self.dockerd)
-        finally:
-            try:
-                terminate(self.containerd)
-            except OSError:
-                pass
-
-
 @contextmanager
-def run_dockerd(bridge: str) -> Iterator[Dockerd]:
+def run_dockerd(bridge: str) -> Iterator[None]:
     runq = BUILD_ROOT.joinpath("runq-release/runq")
     data = {
         "storage-driver": "devicemapper",
@@ -215,7 +197,16 @@ def run_dockerd(bridge: str) -> Iterator[Dockerd]:
 
         old = os.environ.copy()
         os.environ["DOCKER_HOST"] = docker_host
-        yield Dockerd(p1, p2)
+        try:
+            yield
+        finally:
+            try:
+                terminate(p2)
+            finally:
+                try:
+                    terminate(p1)
+                except OSError:
+                    pass
 
 
 @dataclass
@@ -522,6 +513,7 @@ def create_bridge() -> Iterator[str]:
     try:
         yield name
     finally:
+        print("delete bridge")
         run(["sudo", "ip", "link", "del", name], check=False)
 
 
