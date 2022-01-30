@@ -13,7 +13,7 @@ RUN apk add \
 	patch \
     git
 
-ENV SYSDIG_VERSION 0.27.1
+ENV SYSDIG_VERSION 0.28.0
 
 RUN mkdir -p /src/build && \
     wget https://github.com/draios/sysdig/archive/refs/tags/${SYSDIG_VERSION}.tar.gz -O /tmp/sysdig.tar.gz && \
