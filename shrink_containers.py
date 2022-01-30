@@ -261,7 +261,7 @@ def run_container(
 ) -> Iterator[Dict[str, Any]]:
     opts = docker_run_options(image, old_container)
     assert image.repo_digest is not None
-    n = name or image.name
+    n = (name or image.name).replace(":", "-")
     subprocess.run(["docker", "rm", "-f", n], check=False)
     cmd = (
         ["docker", "run", f"--runtime={runtime}", "--name", n, "-d"]
