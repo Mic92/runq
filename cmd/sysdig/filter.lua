@@ -7,7 +7,7 @@ function on_init()
 
   -- same as PATH_MAX
   sysdig.set_snaplen(4096)
-  chisel.set_filter("evt.type in ('execve', 'openat', 'open', 'rename', 'renameat', 'stat', 'fstatat', 'lstat', 'chmod', 'fchmodat', 'chown', 'chownat', 'access', 'chdir')")
+  chisel.set_filter("evt.type in ('execve', 'openat', 'open', 'rename', 'renameat', 'stat', 'lstat', 'chmod', 'fchmodat', 'chown', 'access', 'chdir')")
   return true
 end
 
