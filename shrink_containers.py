@@ -116,7 +116,7 @@ def build_runq() -> None:
 @contextmanager
 def run_dockerd(bridge: str) -> Iterator[subprocess.Popen]:
     data = {
-        "storage-driver": "devicemapper",
+        "storage-driver": "vfs",
         "runtimes": {
             "runq": {
                 "path": str(BUILD_ROOT.joinpath("runq-release/runq")),
