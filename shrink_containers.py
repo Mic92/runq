@@ -116,7 +116,7 @@ def build_runq() -> None:
 @contextmanager
 def run_dockerd(bridge: str) -> Iterator[subprocess.Popen]:
     data = {
-        "storage-driver": "vfs",
+        "storage-driver": "overlay",
         "runtimes": {
             "runq": {
                 "path": str(BUILD_ROOT.joinpath("runq-release/runq")),
@@ -143,6 +143,17 @@ def run_dockerd(bridge: str) -> Iterator[subprocess.Popen]:
         with open(pid_file) as f:
             run(["sudo", "kill", "-9", f.read().strip()], check=False)
             run(["sudo", "rm", str(pid_file)], check=False)
+
+    #sudo mount -t ext4 -o loop /media/USER/DISK/linux.img /media/USER/YourDIR
+    data_root = BUILD_ROOT.joinpath('docker')
+    data_image = BUILD_ROOT.joinpath('docker.ext4')
+    run(["sudo", "umount", str(data_root)], check=False)
+    if data_image.exists():
+        data_image.unlink()
+    run(["truncate", "-s30G", str(data_image)])
+    run(["sudo", "mkfs.ext4", str(data_image)])
+    run(["sudo", "mount", "-t", "ext4", "-o", "loop", str(data_image), str(data_root)])
+
     cmd = [
         "sudo",
         "dockerd",
@@ -154,7 +165,7 @@ def run_dockerd(bridge: str) -> Iterator[subprocess.Popen]:
         str(daemon_path),
         "-H",
         docker_host,
-        f"--data-root={BUILD_ROOT.joinpath('docker')}",
+        f"--data-root={data_root}",
     ]
     print(" ".join(cmd))
     with subprocess.Popen(cmd) as p:
