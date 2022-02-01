@@ -122,6 +122,13 @@ def terminate(p: subprocess.Popen) -> None:
         run(["sudo", "kill", "-9", str(p.pid)])
 
 
+def cleanup_pid_file(pid_file: Path) -> None:
+    if pid_file.exists():
+        with open(pid_file) as f:
+            run(["sudo", "kill", "-9", f.read().strip()], check=False)
+            run(["sudo", "rm", str(pid_file)], check=False)
+
+
 @contextmanager
 def run_dockerd(bridge: str) -> Iterator[None]:
     runq = BUILD_ROOT.joinpath("runq-release/runq")
@@ -142,17 +149,17 @@ def run_dockerd(bridge: str) -> Iterator[None]:
             }
         },
     }
+
     daemon_path = BUILD_ROOT.joinpath("daemon.json")
     with open(daemon_path, "w") as f:
         json.dump(data, f)
     sock_path = BUILD_ROOT.joinpath("docker.sock")
     docker_host = f"unix://{sock_path}"
     pid_file = BUILD_ROOT.joinpath("docker.pid")
+    cleanup_pid_file(pid_file)
+    containerd_pid_file = BUILD_ROOT.joinpath("containerd.pid")
+    cleanup_pid_file(containerd_pid_file)
     containerd_sock = BUILD_ROOT.joinpath("docker-containerd.sock")
-    if pid_file.exists():
-        with open(pid_file) as f:
-            run(["sudo", "kill", "-9", f.read().strip()], check=False)
-            run(["sudo", "rm", str(pid_file)], check=False)
 
     nix_cc = os.environ.get("NIX_CC")
     if nix_cc:
@@ -193,6 +200,8 @@ def run_dockerd(bridge: str) -> Iterator[None]:
     with subprocess.Popen(containerd) as p1, subprocess.Popen(cmd) as p2:
         print(f"containerd: {p1.pid}")
         print(f"docker: {p2.pid}")
+        with open(containerd_pid_file, "w") as f:
+            f.write(str(p1.pid))
         client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         while True:
             try:
