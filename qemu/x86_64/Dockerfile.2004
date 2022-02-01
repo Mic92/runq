@@ -73,7 +73,7 @@ RUN    echo base  /lib/modules/*/kernel/fs/fscache/fscache.ko                   
     && echo btrfs /lib/modules/*/kernel/fs/btrfs/btrfs.ko                                   >> $QEMU_ROOT/kernel.conf \
     && echo xfs   /lib/modules/*/kernel/lib/libcrc32c.ko                                    >> $QEMU_ROOT/kernel.conf \
     && echo xfs   /lib/modules/*/kernel/fs/xfs/xfs.ko                                       >> $QEMU_ROOT/kernel.conf \
-    && echo sysdig /lib/modules/*/extra/scap.ko                                             >> $QEMU_ROOT/kernel.conf
+    && echo sysdig /lib/modules/*/extra/sysdig-probe.ko                                     >> $QEMU_ROOT/kernel.conf
 
 RUN cp /boot/vmlinuz-*-generic $QEMU_ROOT/kernel
 
