@@ -126,7 +126,6 @@ def terminate(p: subprocess.Popen) -> None:
 def run_dockerd(bridge: str) -> Iterator[None]:
     runq = BUILD_ROOT.joinpath("runq-release/runq")
     data = {
-        "storage-driver": "devicemapper",
         "runtimes": {
             "runq": {
                 "path": str(runq),
