@@ -538,7 +538,10 @@ def create_bridge() -> Iterator[str]:
 
 
 def main() -> None:
-    images_path = ROOT.joinpath("images.json")
+    if len(sys.argv) > 1:
+        images_path = Path(sys.argv[1])
+    else:
+        images_path = ROOT.joinpath("images.json")
     images = read_images(images_path)
     build_runq()
     run(["sudo", "modprobe", "vhost_vsock"])
