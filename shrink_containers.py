@@ -191,6 +191,8 @@ def run_dockerd(bridge: str) -> Iterator[None]:
     print(" ".join(cmd))
 
     with subprocess.Popen(containerd) as p1, subprocess.Popen(cmd) as p2:
+        print(f"containerd: {p1.pid}")
+        print(f"docker: {p2.pid}")
         client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         while True:
             try:
