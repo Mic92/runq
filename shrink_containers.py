@@ -552,6 +552,8 @@ def main() -> None:
                 print(f"skip {image.name}")
                 continue
             analyze_image(image)
+            subprocess.run("docker rm $(docker ps -aq)", shell=True)
+            subprocess.run("sudo pkill -u root qemu-system-x86", shell=True)
             write_images(images_path, images)
 
 
