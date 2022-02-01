@@ -324,8 +324,9 @@ def run_container_instrumented(
 
 def wait_tcp_port(address: str, port: int) -> None:
     s = socket.socket()
+    s.settimeout(1)
     info(f"wait for {address}:{port}")
-    while True:
+    for i in range(200):
         try:
             s.connect((address, port))
             s.close()
