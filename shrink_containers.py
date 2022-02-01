@@ -177,7 +177,17 @@ def run_dockerd(bridge: str) -> Iterator[None]:
         docker_host,
         f"--data-root={data_root}",
     ]
-    containerd = ["sudo", "containerd", "--address", str(containerd_sock)]
+    containerd = [
+        "sudo",
+        "containerd",
+        "--config", ROOT.joinpath("config.toml"),
+        "--address",
+        str(containerd_sock),
+        "--state",
+        BUILD_ROOT.joinpath("containerd-state"),
+        "--root",
+        BUILD_ROOT.joinpath("containerd-root"),
+    ]
     print(" ".join(cmd))
 
     with subprocess.Popen(containerd) as p1, subprocess.Popen(cmd) as p2:
