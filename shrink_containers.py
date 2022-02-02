@@ -388,7 +388,7 @@ def shrink_image(image: Image, tempdir: Path, log_path: Path) -> Tuple[str, int,
             if not p.startswith(b"/"):
                 continue
             path_set.add(p)
-            print(p.decode("utf-8", errors="ignore"))
+            #print(p.decode("utf-8", errors="ignore"))
 
     export_name = tempdir.joinpath("export")
     reduced_name = tempdir.joinpath("reduced")
@@ -483,13 +483,14 @@ def shrink_image(image: Image, tempdir: Path, log_path: Path) -> Tuple[str, int,
             # just include all directories to have their permission
             # also fixes chdir into empty directories
             if entry.isdir() or entry.issym() or entry_name.encode("utf-8") in path_set:
-                print(f"include {entry_name}")
+                #print(f"include {entry_name}")
                 fileobj = None
                 if entry.isreg():
                     fileobj = source.extractfile(entry)
                 destination.addfile(entry, fileobj=fileobj)
             else:
-                print(f"exclude {entry_name}")
+                pass
+                #print(f"exclude {entry_name}")
     finally:
         source.close()
         destination.close()
